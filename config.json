@@ -1,0 +1,7 @@
+{
+    "me": "<your_github_login>",
+    "special_label": "<special_pr_label_that_you want_to_review>",
+    "dependabot_prs": "<do_you_want_to_review_dependabot>",
+    "ignored_pr_labels": "<list_of_ignored_labels>",
+    "default_branch_workflow_name": "<name_of_the_file_with_default_branch_workflow>"
+}
