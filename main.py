@@ -83,4 +83,3 @@ for repo in repos:
         if untested_pr.merged_by and untested_pr.merged_by.login == config["me"] and all(
                 label.name != "Tested" for label in untested_pr.labels):
             print(f"🧪 To test: {repo} {untested_pr.title} {untested_pr.html_url}")
-
