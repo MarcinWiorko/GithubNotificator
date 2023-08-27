@@ -1,0 +1,10 @@
+# Development
+
+venv/
+.idea
+
+# Usage
+github_token.txt
+config.json
+repos.txt
+
