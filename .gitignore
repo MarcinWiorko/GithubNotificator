@@ -1,11 +1,11 @@
 # Development
-
 venv/
 .idea
 src/GitHubNotificator.egg-info/
+blue/
 
-# Usage
-github_token.txt
-config.json
-repos.txt
+## Usage
+#src/github_notificator/github_token.txt
+#src/github_notificator/config.json
+#src/github_notificator/repos.txt
 
