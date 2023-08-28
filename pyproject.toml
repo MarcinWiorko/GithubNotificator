@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=64.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "GitHubNotificator"
+version = "0.0.1"
+
+dependencies = [
+    "PyGithub >= 1.59.1",
+]
+
+[project.scripts]
+notify = "github_notificator.__main__:main"
