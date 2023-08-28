@@ -2,6 +2,7 @@
 
 venv/
 .idea
+src/GitHubNotificator.egg-info/
 
 # Usage
 github_token.txt
