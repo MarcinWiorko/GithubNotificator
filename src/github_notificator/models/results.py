@@ -24,12 +24,11 @@ class Discussion(Result):
 @dataclass
 class ReadyForMerge(Result):
     """Message that your pr is ready for merge"""
-    main_branch_status: str
-    main_branch_conclusion: str
+    main_branch_status: tuple[str, str]
 
     def __str__(self):
         return f"😎 To merge: {self.repo} {self.pr_title} {self.pr_link} Main branch workflow: " \
-               f"{(self.main_branch_status, self.main_branch_conclusion)} "
+               f"{(self.main_branch_status[0], self.main_branch_status[1])}"
 
 
 class ReadyForReview(Result):
