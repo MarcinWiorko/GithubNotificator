@@ -2,7 +2,7 @@
 venv/
 .idea
 src/GitHubNotificator.egg-info/
-blue/
+tests/.pytest_cache
 
 ## Usage
 #src/github_notificator/github_token.txt
