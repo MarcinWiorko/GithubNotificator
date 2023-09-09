@@ -1,11 +1,14 @@
-name: Mypy
+name: MutMut
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Mypy
+    name: Mutmut
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python 3.11
