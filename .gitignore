@@ -4,6 +4,8 @@ venv/
 src/GitHubNotificator.egg-info/
 tests/.pytest_cache
 build/
+.mutmut-cache
+.coverage
 
 ## Usage
 #src/github_notificator/github_token.txt

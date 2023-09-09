@@ -20,6 +20,6 @@ class TestReadyForMerge:
         }
         result = Collector(repo, config).collect()
 
-        assert len(result) == 1
+        assert len(result) == 2
         assert result[0].pr_title == "ready"
         assert str(result[0]) == "😎 To merge: name, ready https Main branch workflow: ('status', 'conclusion')"
