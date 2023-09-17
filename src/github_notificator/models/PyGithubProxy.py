@@ -3,7 +3,6 @@ File contains classes which are proxy to original ones from PyGithub.
 There should make easier testing
 """
 from dataclasses import dataclass
-from typing import Optional
 
 from github.PullRequest import PullRequest
 from github.Repository import Repository
@@ -12,7 +11,7 @@ from github.Repository import Repository
 @dataclass
 class PullRequestProxy:
     """Proxy for PullRequest class in PyGithub"""
-    original_instance: Optional[PullRequest]
+    original_instance: PullRequest
 
     # use pr flag to filter
 
@@ -75,7 +74,7 @@ class PullRequestProxy:
         -------
            Merged user of the pr
         """
-        return self.original_instance.merged_by and self.original_instance.merged_by.login
+        return '' if self.original_instance.merged_by else self.original_instance.merged_by.login
 
     def get_pr_html_url(self) -> str:
         """
@@ -121,7 +120,7 @@ class PullRequestProxy:
 @dataclass
 class RepositoryProxy:
     """Proxy for Repository class in PyGithub"""
-    original_instance: Optional[Repository]
+    original_instance: Repository
 
     def get_closed_pulls(self) -> list[PullRequestProxy]:
         """
@@ -144,7 +143,7 @@ class RepositoryProxy:
         """
         return [PullRequestProxy(pr) for pr in self.original_instance.get_pulls(state='open', base='main').get_page(0)]
 
-    def get_name(self):
+    def get_name(self) -> str:
         """
         Get name of the repo
 

@@ -61,7 +61,7 @@ class Collector:
         opened_prs = self._filter_task_for_another_team(opened_prs)
         return opened_prs
 
-    def _collect_ready_for_merge(self, opened_prs: list[PullRequestProxy]):
+    def _collect_ready_for_merge(self, opened_prs: list[PullRequestProxy]) -> None:
         for pr in opened_prs:
             pr_ready_to_merge = ReadyForMerge(self.repo.get_name(), pr.get_title(), pr.get_pr_html_url(),
                                               self.repo.get_main_branch_status_and_conclusion(
@@ -69,7 +69,7 @@ class Collector:
             self.results.append(pr_ready_to_merge)
             print(pr_ready_to_merge)
 
-    def _collect_untested(self):
+    def _collect_untested(self) -> None:
         untested_prs = self.repo.get_closed_pulls()
         for pr in untested_prs:
             if self._is_untested(pr):
@@ -77,7 +77,7 @@ class Collector:
                 self.results.append(untested)
                 print(untested)
 
-    def _collect_pr_for_discussion_and_for_review(self, opened_prs: list[PullRequestProxy]):
+    def _collect_pr_for_discussion_and_for_review(self, opened_prs: list[PullRequestProxy]) -> None:
         for opened_pr in opened_prs:
             if mentions := self._filter_mentions_about_me(opened_pr):
                 for mention in mentions:
@@ -91,7 +91,7 @@ class Collector:
                 self.results.append(ready_for_review)
                 print(ready_for_review)
 
-    def collect(self):
+    def collect(self) -> list[Result]:
         """Get opened pull request for specific repo"""
         opened_prs = self._prefilter()
         self._collect_ready_for_merge(self._filter_ready_for_merge(opened_prs))
