@@ -5,6 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "GitHubNotificator"
 version = "0.0.1"
+license = "MIT"
+authors = [
+    "Marcin Wiorko",
+]
 
 dependencies = [
     "PyGithub >= 1.59.1",
@@ -44,3 +48,6 @@ exclude_also = [
 omit = [
     "__main__.py"
 ]
+
+[mutmut]
+runner = "python -m hammett -x"

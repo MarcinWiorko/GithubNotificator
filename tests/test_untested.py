@@ -13,7 +13,7 @@ class TestUntested:
                                               mergeable_state="clean", merged_by_user="another", html_url="https",
                                               link_to_discussion=[], is_approved=False)
         already_tested = MockPullRequestProxy(draft=False, author="me", title="title3", labels=["team", "Tested"],
-                                              mergeable_state="clean", merged_by_user="another", html_url="https",
+                                              mergeable_state="clean", merged_by_user="me", html_url="https",
                                               link_to_discussion=[], is_approved=False)
 
         repo = MockRepositoryProxy(opened_pull_request=[],
