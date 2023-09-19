@@ -74,7 +74,8 @@ class PullRequestProxy:
         -------
            Merged user of the pr
         """
-        return '' if self.original_instance.merged_by else self.original_instance.merged_by.login  # pragma: no cover it needs real repo
+        return '' if self.original_instance.merged_by else self.original_instance.merged_by.login  # pragma: no cover
+        # it needs real repo
 
     def get_pr_html_url(self) -> str:
         """
