@@ -9,7 +9,7 @@ class Result:
     pr_link: str
 
     def __str__(self) -> str:
-        raise NotImplementedError
+        raise NotImplementedError  # pragma: no cover
 
 
 @dataclass
