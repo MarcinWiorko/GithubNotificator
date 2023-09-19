@@ -1,5 +1,8 @@
 """Fake pull request used in test"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+from github.PullRequest import PullRequest
+from github.Requester import Requester
 
 from src.github_notificator.models.PyGithubProxy import PullRequestProxy
 
@@ -7,15 +10,20 @@ from src.github_notificator.models.PyGithubProxy import PullRequestProxy
 @dataclass
 class MockPullRequestProxy(PullRequestProxy):
     """Fake pull request uses in testt"""
-    draft: bool
-    author: str
-    title: str
-    labels: list[str]
-    mergeable_state: str
-    merged_by_user: str
-    html_url: str
-    link_to_discussion: list[str]
-    is_approved: bool
+    draft: bool = False
+    author: str = ""
+    title: str = ""
+    labels: list[str] = field(default_factory=list)
+    mergeable_state: str = ""
+    merged_by_user: str = ""
+    html_url: str = ""
+    link_to_discussion: list[str] = field(default_factory=list)
+    is_approved: bool = True
+    original_instance: PullRequest = PullRequest(attributes={}, completed=True, headers={},
+                                                 requester=Requester(auth=None, base_url='https://example.org',
+                                                                     per_page=30, pool_size=None, retry=None,
+                                                                     timeout=60,
+                                                                     user_agent='', verify=True))
 
     def is_draft(self) -> bool:
         """

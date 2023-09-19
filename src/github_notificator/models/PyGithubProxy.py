@@ -3,7 +3,6 @@ File contains classes which are proxy to original ones from PyGithub.
 There should make easier testing
 """
 from dataclasses import dataclass
-from typing import Optional
 
 from github.PullRequest import PullRequest
 from github.Repository import Repository
@@ -12,7 +11,7 @@ from github.Repository import Repository
 @dataclass
 class PullRequestProxy:
     """Proxy for PullRequest class in PyGithub"""
-    original_instance: Optional[PullRequest]
+    original_instance: PullRequest
 
     # use pr flag to filter
 
@@ -25,7 +24,7 @@ class PullRequestProxy:
             True if it is draft otherwise false
 
         """
-        return self.original_instance.draft
+        return self.original_instance.draft  # pragma: no cover it needs real repo
 
     def get_author(self) -> str:
         """
@@ -35,7 +34,7 @@ class PullRequestProxy:
         -------
             Author of the pr
         """
-        return self.original_instance.user.login
+        return self.original_instance.user.login  # pragma: no cover it needs real repo
 
     def get_title(self) -> str:
         """
@@ -45,7 +44,7 @@ class PullRequestProxy:
         -------
             Title of the pr
         """
-        return self.original_instance.title
+        return self.original_instance.title  # pragma: no cover it needs real repo
 
     def get_labels(self) -> list[str]:
         """
@@ -55,7 +54,7 @@ class PullRequestProxy:
         -------
             Labels of the pr
         """
-        return [str(label) for label in self.original_instance.labels]
+        return [str(label) for label in self.original_instance.labels]  # pragma: no cover it needs real repo
 
     def get_mergeable_state(self) -> str:
         """
@@ -65,7 +64,7 @@ class PullRequestProxy:
         -------
             Mergeable state of the pr
         """
-        return self.original_instance.mergeable_state
+        return self.original_instance.mergeable_state  # pragma: no cover it needs real repo
 
     def get_merged_user(self) -> str:
         """
@@ -75,7 +74,8 @@ class PullRequestProxy:
         -------
            Merged user of the pr
         """
-        return self.original_instance.merged_by and self.original_instance.merged_by.login
+        return '' if self.original_instance.merged_by else self.original_instance.merged_by.login  # pragma: no cover
+        # it needs real repo
 
     def get_pr_html_url(self) -> str:
         """
@@ -85,7 +85,7 @@ class PullRequestProxy:
         -------
             Html url of the pr
         """
-        return self.original_instance.html_url
+        return self.original_instance.html_url  # pragma: no cover it needs real repo
 
     def get_links_to_mentions_in_discussions(self, me: str) -> list[str]:
         """
@@ -99,7 +99,7 @@ class PullRequestProxy:
             list of links to o discussions where you were mentions in the PR
         """
 
-        return [discussion.html_url for discussion in
+        return [discussion.html_url for discussion in  # pragma: no cover it needs real repo
                 self.original_instance.get_review_comments() for reaction in discussion.get_reactions().get_page(0) if
                 f"@{me}" in discussion.body and reaction.user.login != me]
 
@@ -114,14 +114,15 @@ class PullRequestProxy:
         -------
            Is the pr already approved by you
         """
-        return any(review.state == "APPROVED" and review.user.login == me for review in
+        return any(
+            review.state == "APPROVED" and review.user.login == me for review in  # pragma: no cover it needs real repo
                    self.original_instance.get_reviews())
 
 
 @dataclass
 class RepositoryProxy:
     """Proxy for Repository class in PyGithub"""
-    original_instance: Optional[Repository]
+    original_instance: Repository
 
     def get_closed_pulls(self) -> list[PullRequestProxy]:
         """
@@ -131,7 +132,7 @@ class RepositoryProxy:
         -------
             Closed pulls
         """
-        return [PullRequestProxy(pr) for pr in
+        return [PullRequestProxy(pr) for pr in  # pragma: no cover it needs real repo
                 self.original_instance.get_pulls(state='closed', base='main').get_page(0)]
 
     def get_open_pulls(self) -> list[PullRequestProxy]:
@@ -142,9 +143,10 @@ class RepositoryProxy:
         -------
             Open pulls
         """
-        return [PullRequestProxy(pr) for pr in self.original_instance.get_pulls(state='open', base='main').get_page(0)]
+        return [PullRequestProxy(pr) for pr in self.original_instance.get_pulls(state='open', base='main').get_page(
+            0)]  # pragma: no cover it needs real repo
 
-    def get_name(self):
+    def get_name(self) -> str:
         """
         Get name of the repo
 
@@ -152,7 +154,7 @@ class RepositoryProxy:
         -------
            Name of the repo
         """
-        return self.original_instance.name
+        return self.original_instance.name  # pragma: no cover it needs real repo
 
     def get_main_branch_status_and_conclusion(self, default_branch_workflow_name: str) -> tuple[str, str]:
         """
@@ -167,5 +169,6 @@ class RepositoryProxy:
         -------
             Status and conclusion of the last run as a tuple
         """
-        last_run = self.original_instance.get_workflow(default_branch_workflow_name).get_runs().get_page(0)[0]
-        return last_run.status, last_run.conclusion
+        last_run = self.original_instance.get_workflow(default_branch_workflow_name).get_runs().get_page(0)[
+            0]  # pragma: no cover it needs real repo
+        return last_run.status, last_run.conclusion  # pragma: no cover it needs real repo

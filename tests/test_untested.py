@@ -6,14 +6,20 @@ from tests.mocks.MockRepositoryProxy import MockRepositoryProxy
 
 class TestUntested:
     def test_untested(self):
-        untested = MockPullRequestProxy(None, False, "me", "title1", ["team"], "clean", "me", "https", [], False)
-        other_untested = MockPullRequestProxy(None, False, "another", "title2", ["team"], "clean", "another", "https",
-                                              [], False)
-        already_tested = MockPullRequestProxy(None, False, "me", "title3", ["team", "Tested"], "clean", "", "https", [],
-                                              False)
+        untested = MockPullRequestProxy(draft=False, author="me", title="title1", labels=["team"],
+                                        mergeable_state="clean", merged_by_user="me", html_url="https",
+                                        link_to_discussion=[], is_approved=False)
+        other_untested = MockPullRequestProxy(draft=False, author="another", title="title2", labels=["team"],
+                                              mergeable_state="clean", merged_by_user="another", html_url="https",
+                                              link_to_discussion=[], is_approved=False)
+        already_tested = MockPullRequestProxy(draft=False, author="me", title="title3", labels=["team", "Tested"],
+                                              mergeable_state="clean", merged_by_user="me", html_url="https",
+                                              link_to_discussion=[], is_approved=False)
 
-        repo = MockRepositoryProxy(None, [], [untested, other_untested, already_tested], "name,",
-                                   ("status", "conclusion"))
+        repo = MockRepositoryProxy(opened_pull_request=[],
+                                   closed_pull_request=[untested, other_untested, already_tested],
+                                   name="name,", main_status=("status", "conclusion"))
+
         config = {
             "me": "me",
             "special_label": "team2",

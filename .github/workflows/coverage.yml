@@ -1,0 +1,24 @@
+name: Coverage
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Coverage
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.11
+      - name: Install Dependencies
+        run: |
+          pip install pytest-cov
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: pytest-cov
+        run: |
+          python -m pytest --cov-fail-under=100 --cov=.

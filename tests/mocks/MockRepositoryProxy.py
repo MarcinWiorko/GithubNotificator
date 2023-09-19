@@ -1,5 +1,8 @@
 """Fake repository used in test"""
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+from github.Repository import Repository
+from github.Requester import Requester
 
 from src.github_notificator.models.PyGithubProxy import RepositoryProxy, PullRequestProxy
 from tests.mocks.MockPullRequestProxy import MockPullRequestProxy
@@ -8,10 +11,15 @@ from tests.mocks.MockPullRequestProxy import MockPullRequestProxy
 @dataclass
 class MockRepositoryProxy(RepositoryProxy):
     """Fake repository used in test"""
-    opened_pull_request: list[MockPullRequestProxy]
-    closed_pull_request: list[MockPullRequestProxy]
-    name: str
-    main_status: tuple[str, str]
+    opened_pull_request: list[MockPullRequestProxy] = field(default_factory=list)
+    closed_pull_request: list[MockPullRequestProxy] = field(default_factory=list)
+    name: str = ""
+    main_status: tuple[str, str] = field(default_factory=tuple)
+    original_instance: Repository = Repository(attributes={}, completed=True, headers={},
+                                               requester=Requester(auth=None, base_url='https://example.org',
+                                                                   per_page=30, pool_size=None, retry=None,
+                                                                   timeout=60,
+                                                                   user_agent='', verify=True))
 
     def get_closed_pulls(self) -> list[PullRequestProxy]:
         """
