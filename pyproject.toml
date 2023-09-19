@@ -46,8 +46,6 @@ exclude_also = [
     "@(abc\\.)?abstractmethod",
 ]
 omit = [
-    "__main__.py"
+    "__main__.py",
+    "mutmut_config.py"
 ]
-
-[mutmut]
-runner = "python -m hammett -x"
