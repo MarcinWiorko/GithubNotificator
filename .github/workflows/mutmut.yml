@@ -15,9 +15,13 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: 3.11
-      - name: Install Dependencies
+      - name: Install mutmut
         run: |
           pip install mutmut
+      - name: Install Dependencies
+        run: |
+          pip install pytest-cov
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: mutmut
         run: |
           python -m mutmut run
