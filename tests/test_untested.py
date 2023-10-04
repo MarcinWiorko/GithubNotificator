@@ -1,11 +1,12 @@
 """Tests collecting ready for merge prs"""
-from src.github_notificator.collectors.collectors import Collector
+from github_notificator.collectors.collectors import Collector
+from github_notificator.models.config import Config
 from tests.mocks.MockPullRequestProxy import MockPullRequestProxy
 from tests.mocks.MockRepositoryProxy import MockRepositoryProxy
 
 
 class TestUntested:
-    def test_untested(self):
+    def test_untested(self) -> None:
         untested = MockPullRequestProxy(draft=False, author="me", title="title1", labels=["team"],
                                         mergeable_state="clean", merged_by_user="me", html_url="https",
                                         link_to_discussion=[], is_approved=False)
@@ -20,7 +21,7 @@ class TestUntested:
                                    closed_pull_request=[untested, other_untested, already_tested],
                                    name="name,", main_status=("status", "conclusion"))
 
-        config = {
+        config: Config = {
             "me": "me",
             "special_label": "team2",
             "dependabot_prs": False,

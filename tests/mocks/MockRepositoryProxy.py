@@ -4,17 +4,16 @@ from dataclasses import dataclass, field
 from github.Repository import Repository
 from github.Requester import Requester
 
-from src.github_notificator.models.PyGithubProxy import RepositoryProxy, PullRequestProxy
-from tests.mocks.MockPullRequestProxy import MockPullRequestProxy
+from github_notificator.models.PyGithubProxy import RepositoryProxy, PullRequestProxy
 
 
 @dataclass
 class MockRepositoryProxy(RepositoryProxy):
     """Fake repository used in test"""
-    opened_pull_request: list[MockPullRequestProxy] = field(default_factory=list)
-    closed_pull_request: list[MockPullRequestProxy] = field(default_factory=list)
+    opened_pull_request: list[PullRequestProxy] = field(default_factory=list)
+    closed_pull_request: list[PullRequestProxy] = field(default_factory=list)
     name: str = ""
-    main_status: tuple[str, str] = field(default_factory=tuple)
+    main_status: tuple[str, str] = field(default_factory=lambda: ("", ""))
     original_instance: Repository = Repository(attributes={}, completed=True, headers={},
                                                requester=Requester(auth=None, base_url='https://example.org',
                                                                    per_page=30, pool_size=None, retry=None,
@@ -41,7 +40,7 @@ class MockRepositoryProxy(RepositoryProxy):
         """
         return self.opened_pull_request
 
-    def get_name(self):
+    def get_name(self) -> str:
         """
         Get name of the repo
 
