@@ -5,9 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "GitHubNotificator"
 version = "0.0.1"
-license = "MIT"
 authors = [
-    "Marcin Wiorko",
+    {name = "Marcin Wiorko"},
 ]
 
 dependencies = [
@@ -31,6 +30,9 @@ show_error_codes = true
 no_implicit_optional = true
 warn_return_any = true
 warn_unused_ignores = true
+#mypy_path = "."
+files = "github_notificator, tests"
+explicit_package_bases = true
 
 [tool.coverage.report]
 exclude_also = [
@@ -45,6 +47,8 @@ exclude_also = [
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
 ]
+
+
 omit = [
     "__main__.py",
     "mutmut_config.py"

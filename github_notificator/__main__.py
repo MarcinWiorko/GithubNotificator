@@ -4,9 +4,9 @@ import json
 from github import Auth
 from github import Github
 
-from src.github_notificator.collectors.collectors import Collector
-from src.github_notificator.models.PyGithubProxy import RepositoryProxy
-from src.github_notificator.models.config import Config
+from github_notificator.collectors.collectors import Collector
+from github_notificator.models.PyGithubProxy import RepositoryProxy
+from github_notificator.models.config import Config
 
 
 def main() -> None:

@@ -43,7 +43,7 @@ repos:
         name: mypy
         stages: [ commit ]
         language: system
-        entry: python -m mypy src/
+        entry: python -m mypy
         types: [ python ]
         pass_filenames: false
         always_run: true

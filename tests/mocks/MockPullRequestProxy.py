@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from github.PullRequest import PullRequest
 from github.Requester import Requester
 
-from src.github_notificator.models.PyGithubProxy import PullRequestProxy
+from github_notificator.models.PyGithubProxy import PullRequestProxy
 
 
 @dataclass

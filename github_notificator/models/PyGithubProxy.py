@@ -54,15 +54,15 @@ class PullRequestProxy:
         -------
             Labels of the pr
         """
-        return [str(label) for label in self.original_instance.labels]  # pragma: no cover it needs real repo
+        return [label.name for label in self.original_instance.labels]  # pragma: no cover it needs real repo
 
     def get_mergeable_state(self) -> str:
         """
-        Get pr's mergeable state
+        Get pr's merge-able state
 
         Returns
         -------
-            Mergeable state of the pr
+            Merge-able state of the pr
         """
         return self.original_instance.mergeable_state  # pragma: no cover it needs real repo
 
@@ -116,7 +116,7 @@ class PullRequestProxy:
         """
         return any(
             review.state == "APPROVED" and review.user.login == me for review in  # pragma: no cover it needs real repo
-                   self.original_instance.get_reviews())
+            self.original_instance.get_reviews())
 
 
 @dataclass
