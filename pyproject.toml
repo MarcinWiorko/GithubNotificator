@@ -30,8 +30,8 @@ show_error_codes = true
 no_implicit_optional = true
 warn_return_any = true
 warn_unused_ignores = true
-mypy_path = "src"
-files = "src, tests"
+#mypy_path = "."
+files = "github_notificator, tests"
 explicit_package_bases = true
 
 [tool.coverage.report]
@@ -47,6 +47,8 @@ exclude_also = [
     "class .*\\bProtocol\\):",
     "@(abc\\.)?abstractmethod",
 ]
+
+
 omit = [
     "__main__.py",
     "mutmut_config.py"

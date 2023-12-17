@@ -15,8 +15,11 @@ class Collector:
 
     def _filter_in_case_of_dependabot_prs(self, opened_prs: list[PullRequestProxy]) -> list[PullRequestProxy]:
         if not self.config["dependabot_prs"]:
-            return list(filter(lambda pr: not pr.is_draft() and pr.get_author() != "dependabot[bot]", opened_prs, ))
+            return list(filter(lambda pr: pr.get_author() != "dependabot[bot]", opened_prs, ))
         return opened_prs
+
+    def _filter_not_draft(self, opened_prs: list[PullRequestProxy]) -> list[PullRequestProxy]:
+        return list(filter(lambda pr: not pr.is_draft(), opened_prs, ))
 
     def _filter_task_for_another_team(self, opened_prs: list[PullRequestProxy]) -> list[PullRequestProxy]:
         return list(filter(lambda pr: all(
@@ -38,6 +41,7 @@ class Collector:
 
     def _prefilter(self) -> list[PullRequestProxy]:
         opened_prs = self.repo.get_open_pulls()
+        opened_prs = self._filter_not_draft(opened_prs)
         opened_prs = self._filter_in_case_of_dependabot_prs(opened_prs)
         opened_prs = self._filter_task_for_another_team(opened_prs)
         return opened_prs
